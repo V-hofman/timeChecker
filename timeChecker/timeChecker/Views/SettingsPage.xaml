@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="timeChecker.Views.Settings"
+             xmlns:model="clr-namespace:timeChecker.Models"
+             xmlns:viewmodel="clr-namespace:timeChecker.ViewModels"
+             x:DataType="viewmodel:SettingsViewModel"
+             Title="Producten">
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Lijst van producten"
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand"
+                TextColor="Black" TextTransform="Uppercase"
+                FontSize="Title"
+                />
+
+            <CollectionView ItemsSource="{Binding Products}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Product">
+                        <StackLayout>
+                            <Grid Margin="40,0,0,8">
+
+                                    
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+                                                Height="Auto"/>
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Grid.Column="0"
+                                         Text="{Binding productName}"
+                                         FontSize="Medium"
+                                         TextColor="Black"/>
+                                <Label Grid.Row="1"
+                                         Margin="15,0,0,0"
+                                         Text="{Binding barcode}"
+                                         TextColor="Silver"
+                                         FontSize="Small"/>
+                                <Label Grid.Column="1"  Grid.Row="0"
+                                       Text="{Binding endDate}"
+                                       TextColor="{Binding textColor}"
+                                       FontSize="Small"
+                                       />
+
+
+                                <Button Grid.Column="1" Grid.Row="1"
+                                        x:DataType="viewmodel:SettingsViewModel"
+                                        Text="X" TextColor="White"
+                                        BackgroundColor="Red"
+                                        Margin="75,0,40,0"
+                                        HeightRequest="40"
+                                        WidthRequest="35"
+                                        CornerRadius="10"
+                                        HorizontalOptions="Center"
+                                        CommandParameter="{Binding Id, Source={RelativeSource AncestorType={x:Type model:Product}}}"
+                                        BindingContext=""
+                                        Command="{Binding DeleteProductCommand, Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}}"/>
+                            </Grid>
+                            <BoxView
+                                    HeightRequest="1"
+                                    Color="LightGray"
+                                    Margin="40,-10,40,0"
+                                    />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="timeChecker.Views.AboutPage"
+             xmlns:vm="clr-namespace:timeChecker.ViewModels" xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             Title="{Binding Title}">
+
+    <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="5">
+        <StackLayout>
+
+            <Button Text="Start scannen" HorizontalOptions="Center" VerticalOptions="End"
+                Clicked="Button_Clicked"/>
+
+            <Label TextColor="Black" Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='vandaag is het: {0:d MMMM, yyyy}'}" HorizontalOptions="Center"/>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="0" TextColor="Black"  x:Name="productName" 
+                       Placeholder="Product naam" PlaceholderColor="DimGray"
+                       ClearButtonVisibility="WhileEditing"
+                       BackgroundColor="AntiqueWhite"
+                       Keyboard="Plain"
+                       Grid.ColumnSpan="2"
+                       HorizontalTextAlignment="Center"
+                       WidthRequest="225"
+                       HorizontalOptions="Center"
+                       
+                    />
+                <Entry Grid.Column="0" Grid.Row="1" TextColor="Black" x:Name="dueDate" 
+                       Placeholder="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:dd-MM-yyyy}'}" PlaceholderColor="DimGray"
+                       ClearButtonVisibility="WhileEditing"
+                       BackgroundColor="AntiqueWhite"
+                       Keyboard="Numeric"
+                       Completed="dueDate_Completed"
+                       MaxLength="10"
+                       HorizontalTextAlignment="Center"
+                       />
+                <Entry Grid.Column="1" Grid.Row="1" TextColor="Black" x:Name="amountDue" 
+                       Placeholder="Aantal Stuks" PlaceholderColor="DimGray"
+                       ClearButtonVisibility="WhileEditing"
+                       BackgroundColor="AntiqueWhite"
+                       Keyboard="Numeric"
+                       MaxLength="10"
+                       HorizontalTextAlignment="Center"
+                       />
+                <Entry Grid.Column="0" Grid.Row="2" TextColor="Black" x:Name="resultScan"
+                       Placeholder="Barcode" PlaceholderColor="DimGray"
+                       ClearButtonVisibility="WhileEditing"
+                       BackgroundColor="AntiqueWhite"
+                       Keyboard="Numeric"
+                       HorizontalTextAlignment="Center"
+                       />
+                <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
+                        Text="+"
+                        FontSize="Title"
+                        CornerRadius="90"
+                        BorderWidth="2"
+                        HorizontalOptions="Center"
+                        VerticalOptions="End"
+                Clicked="add_Product"/>
+
+            </Grid>
+
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
