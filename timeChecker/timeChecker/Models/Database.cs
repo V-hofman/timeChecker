@@ -31,6 +31,11 @@ namespace timeChecker.Models
             return _database.DeleteAsync(product);
         }
 
+        public Task DeleteAllProductsAsync()
+        {
+            return _database.DeleteAllAsync<Product>();
+        }
+
         public Task<Product> GetProductById(int Id)
         {
             var product = _database.Table<Product>().FirstOrDefaultAsync(p => p.Id == Id);

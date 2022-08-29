@@ -25,6 +25,7 @@ namespace timeChecker.ViewModels
         }
         public Command GetProductsCommand { get; }
         public Command<int> DeleteProductCommand { get; }
+        public Command DeleteAllProductsCommand { get; }
 
         ProductService productService;
 
@@ -35,6 +36,7 @@ namespace timeChecker.ViewModels
             this.productService = new ProductService();
             GetProductsCommand = new Command(async () => await getProductAsync());
             DeleteProductCommand = new Command<int>(DeleteProductAsync);
+            DeleteAllProductsCommand = new Command(DeleteAllProductsAsync);          
 
             Products = new ObservableCollection<Product>();
         }
@@ -124,6 +126,31 @@ namespace timeChecker.ViewModels
                 IsBusy = false;
             }
 
+        }
+
+        public async void DeleteAllProductsAsync()
+        {
+            if (IsBusy)
+                return;
+            IsBusy = true;
+
+            try
+            {
+                string answer = await App.Current.MainPage.DisplayPromptAsync("Weet u het zeker?", "type \"DELETE\" om te verwijderen");
+                if (!answer.Equals("DELETE"))
+                    return;
+                _ = productService.DeleteAllProducts();
+                Products.Clear();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to delete products: {ex.Message}");
+                await App.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }

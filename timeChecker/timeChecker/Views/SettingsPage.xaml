@@ -67,10 +67,16 @@
                                     Color="LightGray"
                                     Margin="40,-10,40,0"
                                     />
+
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button
+                Text="DELETE ALL PRODUCTS"
+                Margin="80,0,80,5"
+                BackgroundColor="DarkRed"
+                Command="{Binding DeleteAllProductsCommand, Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

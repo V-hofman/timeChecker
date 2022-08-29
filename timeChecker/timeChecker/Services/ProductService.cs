@@ -48,6 +48,19 @@ namespace timeChecker.Services
             
         }
 
+        public async Task DeleteAllProducts()
+        {
+            try
+            {
+                await DatabasePublic.DeleteAllProductsAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to delete products: {ex.Message}");
+                await App.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
+            }
+        }
+
         public async Task<Product> FindProductById(int Id)
         {
             try
