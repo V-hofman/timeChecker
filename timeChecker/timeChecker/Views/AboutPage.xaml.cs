@@ -52,6 +52,9 @@ namespace timeChecker.Views
                     Navigation.PopAsync();
                     
                     resultScan.Text = result.Text;
+                    resultScan.IsReadOnly = true;
+                    resultScan.TextColor = Color.Gray;
+                    resultScan.FontAttributes = FontAttributes.Italic;
                 });
             };
 
@@ -118,9 +121,22 @@ namespace timeChecker.Views
                     productName = productName.Text,
                     endDate = dueDate.Text,
                     amount = amountProduct
-
                 }) ;
+                ResetInputs();
+
             }
+        }
+
+        private void ResetInputs()
+        {
+            resultScan.Text = null;
+            resultScan.IsReadOnly = false;
+            resultScan.TextColor = Color.Black;
+            resultScan.FontAttributes = FontAttributes.None;
+
+            productName.Text = null;
+            dueDate.Text = null;
+            amountDue.Text = null;
         }
     }
 }
