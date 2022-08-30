@@ -46,15 +46,19 @@ namespace timeChecker.ViewModels
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Used to gather all products from the database file
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task getProductAsync()
         {
             if (IsBusy)
                 return; 
             IsBusy = true;
+
+
             try
             {
-
                 var products = await productService.GetProducts();
 
                 if (_products.Count != 0)
@@ -64,6 +68,7 @@ namespace timeChecker.ViewModels
 
                 var dateNow = DateTime.Now.AddDays(3);
 
+                //Check the text color for the products based on their due date
                 foreach (var product in products)
                 {
                     int result = DateTime.Compare( DateTime.Parse(product.endDate), dateNow);
@@ -100,7 +105,10 @@ namespace timeChecker.ViewModels
             }
 
         }
-
+        /// <summary>
+        /// Delete a product from the database using its ID
+        /// </summary>
+        /// <param name="Id">ID of the product</param>
         public async void DeleteProductAsync(int Id)
         {
             if (IsBusy)
@@ -109,6 +117,7 @@ namespace timeChecker.ViewModels
 
             try
             {
+                //Confirmation dialogue
                 bool answer = await App.Current.MainPage.DisplayAlert ("Product Verwijderen?", "Weet u het zeker?", "Ja", "Nee");
                 if (!answer)
                     return;
@@ -128,7 +137,9 @@ namespace timeChecker.ViewModels
             }
 
         }
-
+        /// <summary>
+        /// Deletes every product from the database, with a pop-up to confirm
+        /// </summary>
         public async void DeleteAllProductsAsync()
         {
             if (IsBusy)
@@ -137,6 +148,7 @@ namespace timeChecker.ViewModels
 
             try
             {
+                //Confirmation dialogue to prevent accidently removing everything
                 string answer = await App.Current.MainPage.DisplayPromptAsync("Weet u het zeker?", "type \"DELETE\" om te verwijderen");
                 if (!answer.Equals("DELETE"))
                     return;
@@ -153,12 +165,19 @@ namespace timeChecker.ViewModels
                 IsBusy = false;
             }
         }
-
+        /// <summary>
+        /// Sort by date, starting with the date that is the earliest
+        /// </summary>
+        /// <param name="products">List of products to be sorted by date</param>
         public void sortByDate(List<Product> products)
         {
             products.Sort((x, y) => DateTime.Compare(DateTime.Parse(x.endDate), DateTime.Parse(y.endDate)));
         }
-
+        /// <summary>
+        /// Filter the product list in the database by the category variable
+        /// </summary>
+        /// <param name="category">This is the string for the category name</param>
+        /// <returns>Task</returns>
         public async Task filterByCategoryAsync(string category)
         {
             Console.WriteLine(category);

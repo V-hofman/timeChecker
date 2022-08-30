@@ -10,6 +10,9 @@ namespace timeChecker.Services
 {
     internal class ProductService
     {
+        /// <summary>
+        /// The database object to gather data
+        /// </summary>
         private static Database database;
 
         internal static Database DatabasePublic
@@ -23,15 +26,24 @@ namespace timeChecker.Services
                 return database;
             }
         }
-
+        /// <summary>
+        /// List of the products
+        /// </summary>
         List<Product> productList = new List<Product>();
-
+        /// <summary>
+        /// Used to gather a list of products from the database
+        /// </summary>
+        /// <returns>A list of product objects</returns>
         public async Task<List<Product>> GetProducts()
         {
             productList = await DatabasePublic.GetProductsAsync();
             return productList;
         }
-
+        /// <summary>
+        /// Delete a product using a product ID
+        /// </summary>
+        /// <param name="Id">The ID of the product</param>
+        /// <returns>Task</returns>
         public async Task DeleteProduct(int Id)
         {
             try
@@ -47,7 +59,10 @@ namespace timeChecker.Services
             }
             
         }
-
+        /// <summary>
+        /// !!!WARNING!!! Deletes all the products from the database file
+        /// </summary>
+        /// <returns>Task</returns>
         public async Task DeleteAllProducts()
         {
             try
@@ -60,7 +75,11 @@ namespace timeChecker.Services
                 await App.Current.MainPage.DisplayAlert("Error!", ex.Message, "OK");
             }
         }
-
+        /// <summary>
+        /// Grab the product information using an ID
+        /// </summary>
+        /// <param name="Id">The ID of the product you wish to grab</param>
+        /// <returns>The product object</returns>
         public async Task<Product> FindProductById(int Id)
         {
             try

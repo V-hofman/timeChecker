@@ -14,6 +14,10 @@ namespace timeChecker.Views
 
     public partial class AboutPage : ContentPage
     {
+
+        /// <summary>
+        /// Database object
+        /// </summary>
         private static Database database;
 
         internal static Database DatabasePublic
@@ -27,6 +31,9 @@ namespace timeChecker.Views
                 return database;
             }
         }
+        /// <summary>
+        /// The barcode scanner
+        /// </summary>
         ZXingScannerPage scanPage;
 
         public AboutPage()
@@ -41,7 +48,9 @@ namespace timeChecker.Views
 
             Category.ItemsSource = categoryList;
         }
-
+        /// <summary>
+        /// Opens the scanner page
+        /// </summary>
         private async void Button_Clicked(object sender, EventArgs e)
         {
             //Start a scannerpage
@@ -68,7 +77,9 @@ namespace timeChecker.Views
 
             await Navigation.PushModalAsync(scanPage);
         }
-
+        /// <summary>
+        /// used to convert plain text to date format
+        /// </summary>
         private void dueDate_Completed(object sender, EventArgs e)
         {
             var temp = dueDate.Text;
@@ -81,9 +92,7 @@ namespace timeChecker.Views
                     if(temp.IndexOf('-', 2) == -1)
                     {
                         temp = temp.Insert(2, "-");
-                    }
-
-                    
+                    }   
                 }
                 if (temp.Length > 5)
                 {
@@ -102,10 +111,11 @@ namespace timeChecker.Views
             else
             {
                 dueDate.Text = "Wrong Date";
-            }
-            
+            } 
         }
-
+        /// <summary>
+        /// Used to add a product to the database
+        /// </summary>
         private async void add_Product(object sender, EventArgs e)
         {
             if(!string.IsNullOrWhiteSpace(resultScan.Text))
@@ -136,7 +146,9 @@ namespace timeChecker.Views
 
             }
         }
-
+        /// <summary>
+        /// Used to reset the input fields
+        /// </summary>
         private void ResetInputs()
         {
             resultScan.Text = null;
