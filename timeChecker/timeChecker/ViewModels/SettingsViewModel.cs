@@ -27,7 +27,6 @@ namespace timeChecker.ViewModels
         public Command GetProductsCommand { get; }
         public Command<int> DeleteProductCommand { get; }
         public Command DeleteAllProductsCommand { get; }
-
         ProductService productService;
 
 
@@ -38,7 +37,6 @@ namespace timeChecker.ViewModels
             GetProductsCommand = new Command(async () => await getProductAsync());
             DeleteProductCommand = new Command<int>(DeleteProductAsync);
             DeleteAllProductsCommand = new Command(DeleteAllProductsAsync);
-
             Products = new ObservableCollection<Product>();
         }
 
@@ -173,6 +171,8 @@ namespace timeChecker.ViewModels
         {
             products.Sort((x, y) => DateTime.Compare(DateTime.Parse(x.endDate), DateTime.Parse(y.endDate)));
         }
+
+
         /// <summary>
         /// Filter the product list in the database by the category variable
         /// </summary>

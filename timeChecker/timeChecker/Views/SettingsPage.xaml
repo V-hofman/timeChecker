@@ -14,32 +14,23 @@
                 TextColor="Black" TextTransform="Uppercase"
                 FontSize="Title"
                 />
-            <Grid MinimumHeightRequest="50">
+            <Grid MinimumHeightRequest="65">
                 <Label Text="Sorteer op:"
                        TextColor="Black"
                        Grid.Row="0" Grid.Column="0"
-                       Grid.ColumnSpan="2"
+                       Grid.ColumnSpan="3"
                        HorizontalOptions="Center"
                        Margin="0,15,0,0"
                        FontSize="Subtitle"
                        />
-                <Button Text="Datum"
-                        Grid.Column="0" Grid.Row="1"
-                        CornerRadius="10"
-                        
-                        />
-                <Button Text="Category"
-                        Grid.Column="1" Grid.Row="1"
-                        CornerRadius="10"
-                        
-                        />
                 <Picker Title="Filter" x:Name="FilterPicker"
-                        Grid.Column="2" Grid.Row="1"
+                        Grid.Column="1" Grid.Row="1"
                         BackgroundColor="AntiqueWhite"
                         HorizontalTextAlignment="Center"
                         TextColor="Black"
                         TitleColor="DimGray"
                         SelectedIndexChanged="FilterPicker_SelectedIndexChanged"
+                        Margin="-5,0,-5,0"
                         >
                 </Picker>
 

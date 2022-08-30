@@ -31,16 +31,15 @@ namespace timeChecker.Views
         protected async override void OnAppearing()
         {
             base.OnAppearing();
+            FilterPicker.SelectedItem = null;
             await (BindingContext as SettingsViewModel).getProductAsync();
+
         }
 
         private async void FilterPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedOption = (sender as Picker).SelectedItem as string;
             await (BindingContext as SettingsViewModel).filterByCategoryAsync(selectedOption);
-            
-
-
         }
     }
 
