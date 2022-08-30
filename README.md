@@ -19,6 +19,8 @@ Clicking the plus button on the bottom will add the product to the database and 
 
 >***Welke categorie:*** Product category (i.e. Soda, snacks, etc.)
 
+![image of the page](https://github.com/V-hofman/timeChecker/blob/master/Readme_Images/Product_Scan.png)
+
 ## Looking at all products
 Switch to the *"Producten"* tab on the fly-out.
 
@@ -29,9 +31,12 @@ Furthermore you can sort on date and category **WIP** and filter on category.
 
 Lastly there is a red *X* to remove objects from the database or by pressing the big red button on the bottom you can remove all the products from the database following a confirmation prompt.
 
+![image of the page](https://user-images.githubusercontent.com/80648504/187424105-02c10910-9146-467d-9473-b79cc5f2389f.png)
+
 ## Checking products that expire today
 Switch to the *"Controle"* tab on the fly-out.
 
 There is a button that does nothing at this point
 ***WIP***
 
+![image of the page](https://github.com/V-hofman/timeChecker/blob/master/Readme_Images/Check_List.png)
