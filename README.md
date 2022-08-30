@@ -2,7 +2,7 @@
 
 This is a short example of an app that uses a phone camera to scan a barcode or anything of the like in order to inventorise and keep track of due dates, to decrease products in shelf that are past their date.
 
-
+**The app has only been tested on android specifically a samsung s10+**
 ## Adding a product
 Switch to the *"Scanner"* tab on the fly-out.
 
