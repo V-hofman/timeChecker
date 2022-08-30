@@ -14,6 +14,7 @@ namespace timeChecker.Models
         public string endDate { get; set; }
         public int amount {  get; set; }
         public string barcode { get; set; }
+        public string category { get; set;}
 
         public string textColor { get; set; }  
 

@@ -19,6 +19,13 @@ namespace timeChecker.Views
         {
             InitializeComponent();
             this.BindingContext = new SettingsViewModel();
+            var categoryList = new List<string>();
+            categoryList.Add("Frisdrank");
+            categoryList.Add("Vers");
+            categoryList.Add("Waterval");
+            categoryList.Add("Kleine koeling");
+
+            FilterPicker.ItemsSource = categoryList;
         }
 
         protected async override void OnAppearing()
@@ -27,6 +34,14 @@ namespace timeChecker.Views
             await (BindingContext as SettingsViewModel).getProductAsync();
         }
 
+        private async void FilterPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedOption = (sender as Picker).SelectedItem as string;
+            await (BindingContext as SettingsViewModel).filterByCategoryAsync(selectedOption);
+            
+
+
+        }
     }
 
 }

@@ -32,6 +32,14 @@ namespace timeChecker.Views
         public AboutPage()
         {
             InitializeComponent();
+
+            var categoryList = new List<string>();
+            categoryList.Add("Frisdrank");
+            categoryList.Add("Vers");
+            categoryList.Add("Waterval");
+            categoryList.Add("Kleine koeling");
+
+            Category.ItemsSource = categoryList;
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
@@ -120,8 +128,10 @@ namespace timeChecker.Views
                     barcode = resultScan.Text,
                     productName = productName.Text,
                     endDate = dueDate.Text,
-                    amount = amountProduct
-                }) ;
+                    amount = amountProduct,
+                    category = Category.SelectedItem.ToString()
+
+                });
                 ResetInputs();
 
             }
@@ -137,6 +147,7 @@ namespace timeChecker.Views
             productName.Text = null;
             dueDate.Text = null;
             amountDue.Text = null;
+            Category.SelectedItem = null;
         }
     }
 }

@@ -59,6 +59,13 @@
                        Keyboard="Numeric"
                        HorizontalTextAlignment="Center"
                        />
+                <Picker x:Name="Category" Title="Welke categorie"
+                        Grid.Column="1" Grid.Row="2"
+                        TextColor="Black"
+                        BackgroundColor="AntiqueWhite"
+                        TitleColor="DimGray"
+                        HorizontalTextAlignment="Center"/>
+
                 <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"
                         Text="+"
                         FontSize="Title"

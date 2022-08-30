@@ -7,6 +7,7 @@ using timeChecker.Services;
 using timeChecker.Models;
 using System.Diagnostics;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace timeChecker.ViewModels
 {
@@ -36,7 +37,7 @@ namespace timeChecker.ViewModels
             this.productService = new ProductService();
             GetProductsCommand = new Command(async () => await getProductAsync());
             DeleteProductCommand = new Command<int>(DeleteProductAsync);
-            DeleteAllProductsCommand = new Command(DeleteAllProductsAsync);          
+            DeleteAllProductsCommand = new Command(DeleteAllProductsAsync);
 
             Products = new ObservableCollection<Product>();
         }
@@ -59,7 +60,7 @@ namespace timeChecker.ViewModels
                 if (_products.Count != 0)
                     _products.Clear();
 
-                products.Sort((x, y) => DateTime.Compare(DateTime.Parse(x.endDate), DateTime.Parse(y.endDate)));
+                sortByDate(products);
 
                 var dateNow = DateTime.Now.AddDays(3);
 
@@ -151,6 +152,25 @@ namespace timeChecker.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        public void sortByDate(List<Product> products)
+        {
+            products.Sort((x, y) => DateTime.Compare(DateTime.Parse(x.endDate), DateTime.Parse(y.endDate)));
+        }
+
+        public async Task filterByCategoryAsync(string category)
+        {
+            Console.WriteLine(category);
+            var linqList = await productService.GetProducts();
+            var linqResult =linqList.Where(x => x.category.Equals(category)).ToList();
+            _products.Clear();
+
+            foreach(var product in linqResult)
+            {
+                _products.Add(product);
+            }
+            return; 
         }
     }
 }

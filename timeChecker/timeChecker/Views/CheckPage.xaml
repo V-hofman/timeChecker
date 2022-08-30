@@ -5,18 +5,11 @@
     <ContentPage.Content>
         <StackLayout>
             <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
 
                 <Button Text="Dag controle lopen"
                     FontSize="Medium"
                         Grid.Row="0" Grid.Column="0"
-                        Grid.ColumnSpan="2"
+                        Grid.ColumnSpan="5"
                         />
 
             </Grid>
