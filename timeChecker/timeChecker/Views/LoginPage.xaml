@@ -2,13 +2,67 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:convert="clr-namespace:timeChecker.Converter"
+             xmlns:viewmodel="clr-namespace:timeChecker.ViewModels"
              mc:Ignorable="d"
              x:Class="timeChecker.Views.LoginPage"
              Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <convert:UserConverter x:Key="myUserConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
+        
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Grid.Column="1" Grid.Row="0"
+                       Text=""
+                       TextColor="Black"  x:Name="username" 
+                       Placeholder="Gebruikersnaam" PlaceholderColor="DimGray"
+                       ClearButtonVisibility="WhileEditing"
+                       BackgroundColor="AntiqueWhite"
+                       Keyboard="Plain"
+                       Grid.ColumnSpan="3"
+                       HorizontalTextAlignment="Center"
+                       WidthRequest="225"
+                       HorizontalOptions="Center"
+                        />
+                <Entry Grid.Column="1" Grid.Row="1"
+                       Text=""
+                       TextColor="Black"  x:Name="password" 
+                       Placeholder="Wachtwoord" PlaceholderColor="DimGray"
+                       ClearButtonVisibility="WhileEditing"
+                       BackgroundColor="AntiqueWhite"
+                       Keyboard="Plain"
+                       Grid.ColumnSpan="3"
+                       HorizontalTextAlignment="Center"
+                       WidthRequest="225"
+                       HorizontalOptions="Center"
+                       IsPassword="True"
+                        />
+                <Button VerticalOptions="Center" Text="Login" 
+                        Command="{Binding LoginCommand, Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}}"
+                        Grid.Row="2" Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        HorizontalOptions="Center"
+                        >
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource myUserConverter}">
+                            <Binding Path="Text" Source="{x:Reference username}"/>
+                            <Binding Path="Text" Source="{x:Reference password}"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

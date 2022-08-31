@@ -20,5 +20,14 @@ namespace timeChecker.Models
         /// Password of the account
         /// </summary>
         public string Password { get; set; }    
+        public User()
+        {
+
+        }
+        public User( string Username, string Password)
+        {
+            this.UserName = Username;
+            this.Password = Password;
+        }
     }
 }
