@@ -11,22 +11,6 @@ namespace timeChecker.Services
     internal class ProductService
     {
         /// <summary>
-        /// The database object to gather data
-        /// </summary>
-        private static Database database;
-
-        internal static Database DatabasePublic
-        {
-            get
-            {
-                if (database == null)
-                {
-                    database = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Product.db3"));
-                }
-                return database;
-            }
-        }
-        /// <summary>
         /// List of the products
         /// </summary>
         List<Product> productList = new List<Product>();
@@ -36,7 +20,7 @@ namespace timeChecker.Services
         /// <returns>A list of product objects</returns>
         public async Task<List<Product>> GetProducts()
         {
-            productList = await DatabasePublic.GetProductsAsync();
+            productList = await App.DatabasePublic.GetProductsAsync();
             return productList;
         }
         /// <summary>
@@ -48,9 +32,9 @@ namespace timeChecker.Services
         {
             try
             {
-                Product product = await DatabasePublic.GetProductById(Id);
+                Product product = await App.DatabasePublic.GetProductById(Id);
                 
-                _ = DatabasePublic.DeleteProductAsync(product);
+                _ = App.DatabasePublic.DeleteProductAsync(product);
             }
             catch (Exception ex)
             {
@@ -67,7 +51,7 @@ namespace timeChecker.Services
         {
             try
             {
-                await DatabasePublic.DeleteAllProductsAsync();
+                await App.DatabasePublic.DeleteAllProductsAsync();
             }
             catch (Exception ex)
             {
@@ -84,7 +68,7 @@ namespace timeChecker.Services
         {
             try
             {
-                 Product product = await DatabasePublic.GetProductById(Id);
+                 Product product = await App.DatabasePublic.GetProductById(Id);
                  return product;
             }
             catch (Exception ex)

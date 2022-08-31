@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="timeChecker.Views.CheckPage">
+             x:Class="timeChecker.Views.CheckPage"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewmodel="clr-namespace:timeChecker.ViewModels">
     <ContentPage.Content>
         <StackLayout>
             <Grid Margin="10">
@@ -12,7 +14,34 @@
                         Grid.ColumnSpan="5"
                         />
 
+                <Label TextColor="Black" Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='vandaag is het: &#10;{0:dddd dd MMMM, yyyy}'}" HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       Grid.Column="1" Grid.ColumnSpan="3"
+                       Grid.Row="1"/>
+                
+
+
             </Grid>
+            <Label Text="Vandaag verlopende producten:" TextColor="Black"
+                   HorizontalOptions="Center" FontAttributes="Bold" FontSize="Subtitle"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Frame BackgroundColor="YellowGreen"
+                       Grid.Column="1"
+                   >
+                    <Label  Text="23" TextColor="Black"
+                            FontSize="80"
+                        BackgroundColor="Green"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                            Padding="15,0,15,0"/>
+                </Frame>
+            </Grid>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

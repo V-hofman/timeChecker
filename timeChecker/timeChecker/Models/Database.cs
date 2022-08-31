@@ -12,9 +12,17 @@ namespace timeChecker.Models
 
         public Database(string dbPath)
         {
-            _database = new SQLiteAsyncConnection(dbPath);
+            var options = new SQLiteConnectionString(dbPath, true,key: "secure",
+                postKeyAction: c=>
+                {
+                    c.Execute("PRAGMA cipher_compatibility = 3");
+                });
+            _database = new SQLiteAsyncConnection(options);
             _database.CreateTableAsync<Product>();
+            _database.CreateTableAsync<User>();
         }
+
+        #region Products
         /// <summary>
         /// Used to get all the products from the database file
         /// </summary>
@@ -29,7 +37,8 @@ namespace timeChecker.Models
         /// <param name="product">The product object to be saved</param>
         /// <returns>The number of rows that is added to the database</returns>
         public Task<int> SaveProductAsync(Product product)
-        {
+       {
+            
             return _database.InsertAsync(product);
         }
         /// <summary>
@@ -59,5 +68,37 @@ namespace timeChecker.Models
             var product = _database.Table<Product>().FirstOrDefaultAsync(p => p.Id == Id);
             return product;
         }
+
+        #endregion
+        #region User
+        /// <summary>
+        /// Grabs a list of all users. SHOULD ALWAYS BE A SINGLE USER
+        /// </summary>
+        /// <returns>List of the user object</returns>
+        public Task<List<User>> GetUsersAsync()
+        {
+            return _database.Table<User>().ToListAsync();
+        }
+        /// <summary>
+        /// Save user to the database
+        /// </summary>
+        /// <param name="user">the userobject to be saved</param>
+        /// <returns>The amount of rows added</returns>
+        public Task<int> SaveUserAsync(User user)
+        {
+            return _database.InsertAsync(user);
+        }
+        /// <summary>
+        /// Delete a user from the database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>The number of rows deleted</returns>
+        public Task<int> DeleteUserAsync(User user)
+        {
+            return _database.DeleteAsync(user);
+        }
+
+
+        #endregion
     }
 }

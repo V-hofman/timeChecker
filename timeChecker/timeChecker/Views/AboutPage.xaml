@@ -12,7 +12,7 @@
             <Button Text="Start scannen" HorizontalOptions="Center" VerticalOptions="End"
                 Clicked="Button_Clicked"/>
 
-            <Label TextColor="Black" Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='vandaag is het: {0:d MMMM, yyyy}'}" HorizontalOptions="Center"/>
+            <Label TextColor="Black" Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='vandaag is het: {0:dddd dd MMMM, yyyy}'}" HorizontalOptions="Center"/>
 
             <Grid>
                 <Grid.RowDefinitions>

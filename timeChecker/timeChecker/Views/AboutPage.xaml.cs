@@ -16,22 +16,6 @@ namespace timeChecker.Views
     {
 
         /// <summary>
-        /// Database object
-        /// </summary>
-        private static Database database;
-
-        internal static Database DatabasePublic
-        {
-            get
-            {
-                if(database == null)
-                {
-                    database = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Product.db3"));
-                }
-                return database;
-            }
-        }
-        /// <summary>
         /// The barcode scanner
         /// </summary>
         ZXingScannerPage scanPage;
@@ -133,7 +117,7 @@ namespace timeChecker.Views
                     var date = dateAndTime.Date;
                     dueDate.Text = date.ToString();
                 }
-                await DatabasePublic.SaveProductAsync(new Product
+                await App.DatabasePublic.SaveProductAsync(new Product
                 {
                     barcode = resultScan.Text,
                     productName = productName.Text,
