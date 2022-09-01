@@ -22,6 +22,10 @@ namespace timeChecker.Services
             return UserList;
         }
 
+        public async Task SaveUser(User user)
+        {
+            await App.DatabasePublic.SaveUserAsync(user);
+        }
 
     }
 }

@@ -28,27 +28,27 @@ namespace timeChecker.ViewModels
             {
                 return;
             }
-            Console.WriteLine(user.UserName);
             if (await CheckLogin(user))
             {
-                Console.WriteLine("Succes");
                 // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
                 await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
             }
             else
             {
-                Console.WriteLine("Failed");
             }
             
         }
 
         private async Task<bool> CheckLogin(User user)
         {
-            Console.Write("!!!!!====We reached this====!!!!");
             var linqList = await userService.GetUsers();
             if(linqList == null || linqList.Count <= 0)
             {
-                return false;
+                bool answer = await App.Current.MainPage.DisplayAlert("Geen account bestaat!", "Wilt u deze account toevoegen?", "Ja", "Nee");
+                if (!answer)
+                    return false;
+
+                await userService.SaveUser(user);
             }
             if (linqList.Any(x => x.UserName == user.UserName && x.Password == user.Password))
             {

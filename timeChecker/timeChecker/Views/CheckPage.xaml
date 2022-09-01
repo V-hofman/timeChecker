@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="timeChecker.Views.CheckPage"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:viewmodel="clr-namespace:timeChecker.ViewModels">
+             xmlns:viewmodel="clr-namespace:timeChecker.ViewModels"
+             x:DataType="viewmodel:CheckViewModel">
     <ContentPage.Content>
         <StackLayout>
             <Grid Margin="10">
@@ -33,9 +34,9 @@
                 <Frame BackgroundColor="YellowGreen"
                        Grid.Column="1"
                    >
-                    <Label  Text="23" TextColor="Black"
+                    <Label  Text="{Binding CheckCount}" TextColor="Black"
                             FontSize="80"
-                        BackgroundColor="Green"
+                        BackgroundColor="{Binding CheckColor}"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
                             Padding="15,0,15,0"/>

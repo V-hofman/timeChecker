@@ -27,9 +27,9 @@ namespace timeChecker.Models
         /// Used to get all the products from the database file
         /// </summary>
         /// <returns>a list of the product objects</returns>
-        public Task<List<Product>> GetProductsAsync()
+        public async Task<List<Product>> GetProductsAsync()
         {
-            return _database.Table<Product>().ToListAsync();
+            return await _database.Table<Product>().ToListAsync();
         }
         /// <summary>
         /// Used to save a product to the database file

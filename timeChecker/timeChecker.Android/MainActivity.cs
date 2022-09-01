@@ -1,5 +1,5 @@
 ﻿using System;
-
+using Plugin.LocalNotification;
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
@@ -14,10 +14,13 @@ namespace timeChecker.Droid
         {
             base.OnCreate(savedInstanceState);
 
+            LocalNotificationCenter.CreateNotificationChannel();
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             LoadApplication(new App());
+
 
             
 
