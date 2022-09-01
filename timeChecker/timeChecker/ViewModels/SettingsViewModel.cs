@@ -180,7 +180,6 @@ namespace timeChecker.ViewModels
         /// <returns>Task</returns>
         public async Task filterByCategoryAsync(string category)
         {
-            Console.WriteLine(category);
             var linqList = await productService.GetProducts();
             var linqResult =linqList.Where(x => x.category.Equals(category)).ToList();
             _products.Clear();

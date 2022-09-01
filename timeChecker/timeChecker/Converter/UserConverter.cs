@@ -13,14 +13,12 @@ namespace timeChecker.Converter
         {
             if (String.IsNullOrWhiteSpace(values[0].ToString()) && String.IsNullOrWhiteSpace(values[1].ToString()))
             {
-                Console.WriteLine("oopsie");
                 return null;
 
             }else
             {
                 string name = values[0].ToString();
                 string secret = values[1].ToString();
-                Console.WriteLine("succes");
                 return new User(Username: name, Password: secret);
             }
 
