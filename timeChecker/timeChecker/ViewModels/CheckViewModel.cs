@@ -22,15 +22,18 @@ namespace timeChecker.ViewModels
         public List<Product> ProductList { get; set; }
 
         ProductService productService;
-        NotificationManager notificationManager;
+        Utils.NotificationManager notificationManager;
 
         public CheckViewModel()
         {
             
             productService = new ProductService();
-            notificationManager = new NotificationManager();
+            notificationManager = new Utils.NotificationManager();
             Task.Run(async () => { await GetProductsDueAsync(); }).Wait();
-            notificationManager.CreateNotification();
+            if(CheckCount > 0)
+            {
+                notificationManager.CreateNotification(CheckCount);
+            }
         }
 
         public async Task GetProductsDueAsync()

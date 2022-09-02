@@ -57,7 +57,6 @@ namespace timeChecker.ViewModels
             {
                 return false;
             }
-
         }
     }
 }
