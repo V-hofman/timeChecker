@@ -8,6 +8,7 @@ using timeChecker.Models;
 using System.Diagnostics;
 using Xamarin.Forms;
 using System.Linq;
+using SQLitePCL;
 
 namespace timeChecker.ViewModels
 {
@@ -27,6 +28,8 @@ namespace timeChecker.ViewModels
         public Command GetProductsCommand { get; }
         public Command<int> DeleteProductCommand { get; }
         public Command DeleteAllProductsCommand { get; }
+        public Command GetCategoriesCommand { get; }
+        public Command AddCategorieCommand { get; }
         ProductService productService;
 
 
@@ -37,6 +40,9 @@ namespace timeChecker.ViewModels
             GetProductsCommand = new Command(async () => await getProductAsync());
             DeleteProductCommand = new Command<int>(DeleteProductAsync);
             DeleteAllProductsCommand = new Command(DeleteAllProductsAsync);
+            GetCategoriesCommand = new Command( async () => await GetCategoriesAsync());
+            AddCategorieCommand = new Command(async () => await AddCategoryAsync());
+            
             Products = new ObservableCollection<Product>();
         }
 
@@ -148,7 +154,7 @@ namespace timeChecker.ViewModels
             {
                 //Confirmation dialogue to prevent accidently removing everything
                 string answer = await App.Current.MainPage.DisplayPromptAsync("Weet u het zeker?", "type \"DELETE\" om te verwijderen");
-                if (!answer.Equals("DELETE"))
+                if (!answer.Equals("DELETE") | answer == null)
                     return;
                 _ = productService.DeleteAllProducts();
                 Products.Clear();
@@ -189,6 +195,25 @@ namespace timeChecker.ViewModels
                 _products.Add(product);
             }
             return; 
+        }
+
+        public async Task<List<Categories>> GetCategoriesAsync()
+        {
+            return await App.DatabasePublic.GetAllCategoriesAsync();
+        }
+
+        public async Task AddCategoryAsync()
+        {
+            string answer = await App.Current.MainPage.DisplayPromptAsync("Category aanmaken", "Naam van de category");
+            if (String.IsNullOrWhiteSpace(answer))
+            {
+                await App.Current.MainPage.DisplayAlert("Error!", "Geef een naam op!", "OK");
+                await AddCategoryAsync();
+            }
+                
+            Categories categories = new Categories(answer);
+            await App.DatabasePublic.SaveCategoryAsync(categories);
+            return;
         }
     }
 }

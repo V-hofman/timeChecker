@@ -8,6 +8,8 @@ namespace timeChecker.Models
 {
     internal class Database
     {
+        public const int LAST_DATABASE_VERSION = 2;
+
         private readonly SQLiteAsyncConnection _database;
 
         public Database(string dbPath)
@@ -16,10 +18,12 @@ namespace timeChecker.Models
                 postKeyAction: c=>
                 {
                     c.Execute("PRAGMA cipher_compatibility = 3");
+                    c.Execute("PRAGMA user_version = " + LAST_DATABASE_VERSION);
                 });
             _database = new SQLiteAsyncConnection(options);
             _database.CreateTableAsync<Product>();
             _database.CreateTableAsync<User>();
+            _database.CreateTableAsync<Categories>();
         }
 
         #region Products
@@ -99,6 +103,27 @@ namespace timeChecker.Models
         }
 
 
+        #endregion
+        #region Categories
+        public Task<Categories> GetCategoryByIdAsync(int Id)
+        {
+            return _database.Table<Categories>().FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveCategoryAsync(Categories categories)
+        {
+            return _database.InsertAsync(categories);
+        }
+
+        public Task<int> DeleteCategoryAsync(Categories categories)
+        {
+            return _database.DeleteAsync(categories);
+        }
+
+        public Task<List<Categories>> GetAllCategoriesAsync()
+        {
+            return _database.Table<Categories>().ToListAsync();
+        }
         #endregion
     }
 }

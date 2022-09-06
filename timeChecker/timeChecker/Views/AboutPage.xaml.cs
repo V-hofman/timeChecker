@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using timeChecker.Models;
 using System.IO;
 using System.Linq;
+using timeChecker.ViewModels;
+using System.Threading.Tasks;
 
 namespace timeChecker.Views
 {
@@ -19,16 +21,12 @@ namespace timeChecker.Views
         /// The barcode scanner
         /// </summary>
         ZXingScannerPage scanPage;
-
+        private List<string> categoryList;
         public AboutPage()
         {
             InitializeComponent();
-
-            var categoryList = new List<string>();
-            categoryList.Add("Frisdrank");
-            categoryList.Add("Vers");
-            categoryList.Add("Waterval");
-            categoryList.Add("Kleine koeling");
+            categoryList = new List<string>();
+            Task.Run(async () => { await GatherCategories(); }).Wait();
 
             Category.ItemsSource = categoryList;
         }
@@ -37,6 +35,9 @@ namespace timeChecker.Views
         /// </summary>
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            if(IsBusy) return;
+
+            IsBusy = true;
             //Start a scannerpage
             scanPage = new ZXingScannerPage();
 
@@ -60,6 +61,7 @@ namespace timeChecker.Views
             };
 
             await Navigation.PushModalAsync(scanPage);
+            IsBusy = false;
         }
         /// <summary>
         /// used to convert plain text to date format
@@ -144,6 +146,19 @@ namespace timeChecker.Views
             dueDate.Text = null;
             amountDue.Text = null;
             Category.SelectedItem = null;
+        }
+
+        private async Task GatherCategories()
+        {
+            this.categoryList.Clear();
+            var tempList = new List<Categories>();
+            tempList = await App.DatabasePublic.GetAllCategoriesAsync();
+            foreach (var category in tempList)
+            {
+                categoryList.Add(category.CategoryName);
+            }
+
+            
         }
     }
 }

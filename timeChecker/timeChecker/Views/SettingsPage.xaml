@@ -104,6 +104,20 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Grid Margin="0,-360,0,0">
+                <Button
+                Text="Voeg nieuwe categorie toe"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                BackgroundColor="Green"
+                Command="{Binding AddCategorieCommand, Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}}"
+                />
+                <Picker
+                    Grid.Column="2" Grid.ColumnSpan="2"/>
+                
+                
+            </Grid>
+
             <Button
                 Text="DELETE ALL PRODUCTS"
                 Margin="80,0,80,5"

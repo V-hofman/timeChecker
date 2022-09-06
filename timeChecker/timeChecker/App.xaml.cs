@@ -17,7 +17,7 @@ namespace timeChecker
             {
                 if (database == null)
                 {
-                    database = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TimeChecker2.db"));
+                    database = new Database(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TimeChecker3.db"));
                 }
                 return database;
             }
