@@ -7,6 +7,7 @@ using timeChecker.Services;
 using Xamarin.Forms;
 using timeChecker.Models;
 using timeChecker.Utils;
+using timeChecker.Views;
 using System.ComponentModel;
 
 namespace timeChecker.ViewModels
@@ -21,6 +22,8 @@ namespace timeChecker.ViewModels
             set { _CheckColor = value; OnPropertyChanged(nameof(CheckColor)); } } 
         public List<Product> ProductList { get; set; }
 
+        public Command ChangeToProductCommand { get; }
+
         ProductService productService;
         Utils.NotificationManager notificationManager;
 
@@ -34,6 +37,7 @@ namespace timeChecker.ViewModels
             {
                 notificationManager.CreateNotification(CheckCount);
             }
+            ChangeToProductCommand = new Command(ChangePage);
         }
 
         public async Task GetProductsDueAsync()
@@ -54,6 +58,12 @@ namespace timeChecker.ViewModels
                     break;
             }
 
+        }
+
+        public async void ChangePage()
+        {
+            Console.WriteLine("Tried");
+            await Shell.Current.GoToAsync($"//{nameof(ProductDisplayPage)}");
         }
     }
 }

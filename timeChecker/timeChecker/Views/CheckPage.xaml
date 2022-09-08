@@ -13,6 +13,7 @@
                     FontSize="Medium"
                         Grid.Row="0" Grid.Column="0"
                         Grid.ColumnSpan="5"
+                        Command="{Binding ChangeToProductCommand }"
                         />
 
                 <Label TextColor="Black" Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='vandaag is het: &#10;{0:dddd dd MMMM, yyyy}'}" HorizontalOptions="Center"
