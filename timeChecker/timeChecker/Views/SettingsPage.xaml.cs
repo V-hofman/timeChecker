@@ -14,17 +14,14 @@ namespace timeChecker.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Settings : ContentPage
     {
+        public List<string> categoryList;
 
         public Settings()
         {
             InitializeComponent();
             this.BindingContext = new SettingsViewModel();
-            var categoryList = new List<string>();
-            categoryList.Add("Frisdrank");
-            categoryList.Add("Vers");
-            categoryList.Add("Waterval");
-            categoryList.Add("Kleine koeling");
-
+            this.categoryList = new List<string>();
+            Task.Run(async () => { await GatherCategories(); }).Wait();
             FilterPicker.ItemsSource = categoryList;
         }
 
@@ -40,6 +37,19 @@ namespace timeChecker.Views
         {
             var selectedOption = (sender as Picker).SelectedItem as string;
             await (BindingContext as SettingsViewModel).filterByCategoryAsync(selectedOption);
+        }
+
+        private async Task GatherCategories()
+        {
+            this.categoryList.Clear();
+            var tempList = new List<Categories>();
+            tempList = await (BindingContext as SettingsViewModel).GetCategoriesAsync();
+            foreach (var category in tempList)
+            {
+                categoryList.Add(category.CategoryName);
+            }
+
+
         }
     }
 

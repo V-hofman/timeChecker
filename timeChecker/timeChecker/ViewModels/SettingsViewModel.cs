@@ -9,6 +9,9 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using System.Linq;
 using SQLitePCL;
+using System.ComponentModel;
+using PropertyChanged;
+using timeChecker.Views;
 
 namespace timeChecker.ViewModels
 {
@@ -22,7 +25,22 @@ namespace timeChecker.ViewModels
             set
             {
                 SetProperty(ref _products, value);
-                OnPropertyChanged("Products");
+                OnPropertyChanged(nameof(Products));
+            }
+        }
+
+        private ObservableCollection<string> _categories;
+
+        public ObservableCollection<string> Categories
+        {
+            get
+            {
+                return _categories;
+            }
+            set
+            {
+                SetProperty(ref _categories, value);
+                OnPropertyChanged(nameof(Categories));
             }
         }
         public Command GetProductsCommand { get; }
@@ -35,6 +53,8 @@ namespace timeChecker.ViewModels
 
         public SettingsViewModel()
         {
+            Categories = new ObservableCollection<string>();
+
             Title = "Product Finder";
             this.productService = new ProductService();
             GetProductsCommand = new Command(async () => await getProductAsync());
@@ -44,6 +64,7 @@ namespace timeChecker.ViewModels
             AddCategorieCommand = new Command(async () => await AddCategoryAsync());
             
             Products = new ObservableCollection<Product>();
+
         }
 
         private void SettingsViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -199,7 +220,17 @@ namespace timeChecker.ViewModels
 
         public async Task<List<Categories>> GetCategoriesAsync()
         {
-            return await App.DatabasePublic.GetAllCategoriesAsync();
+            var resultList = await App.DatabasePublic.GetAllCategoriesAsync();
+            Device.BeginInvokeOnMainThread( () =>
+            {
+                foreach (var category in resultList)
+                {
+                    this.Categories.Add(category.CategoryName);
+                    Console.WriteLine("Category added! " + category.CategoryName);
+                }
+            });
+
+            return resultList;
         }
 
         public async Task AddCategoryAsync()
@@ -213,6 +244,7 @@ namespace timeChecker.ViewModels
                 
             Categories categories = new Categories(answer);
             await App.DatabasePublic.SaveCategoryAsync(categories);
+            await Shell.Current.GoToAsync($"//{nameof(timeChecker.Views.Settings)}");
             return;
         }
     }
