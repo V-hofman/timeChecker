@@ -244,7 +244,6 @@ namespace timeChecker.ViewModels
                 
             Categories categories = new Categories(answer);
             await App.DatabasePublic.SaveCategoryAsync(categories);
-            await Shell.Current.GoToAsync($"//{nameof(timeChecker.Views.Settings)}");
             return;
         }
     }

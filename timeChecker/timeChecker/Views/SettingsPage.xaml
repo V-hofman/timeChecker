@@ -113,18 +113,16 @@
                 Command="{Binding AddCategorieCommand, Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}}"
                 />
                 <Picker
-                    Title="Pick category"
+                    Title="Delete category"
                     ItemsSource="{Binding Categories}"
                     Grid.Column="2" Grid.ColumnSpan="2"
-                    BackgroundColor="AntiqueWhite"
+                    BackgroundColor="DarkRed"
                     HorizontalTextAlignment="Center"
                     TextColor="Black"
-                    TitleColor="DimGray"
+                    TitleColor="White"
                     SelectedIndexChanged="FilterPicker_SelectedIndexChanged"
                     Margin="-5,0,-5,0"
                     />
-                
-                
             </Grid>
 
             <Button
