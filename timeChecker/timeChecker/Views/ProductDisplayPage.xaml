@@ -1,10 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="timeChecker.Views.ProductDisplayPage">
+             x:Class="timeChecker.Views.ProductDisplayPage"
+             xmlns:model="clr-namespace:timeChecker.Models"
+             xmlns:viewmodel="clr-namespace:timeChecker.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             x:DataType="viewmodel:ProductDisplayViewModel"
+             >
     <ContentPage.Content>
         <StackLayout>
-
+            <Grid>
+                <Label Text="{Binding ProductName, StringFormat='Product: &#10; {0}' }"
+                   TextColor="Black" FontSize="Title" HorizontalTextAlignment="Start"
+                       Grid.Column="1" Grid.ColumnSpan="2"
+                       />
+                <Label Text="Selecteer een nieuwe datum:" TextColor="Black"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="0,30,0,0"
+                       FontSize="Subtitle"
+                       Padding="0,0,0,-20"/>
+                
+                <DatePicker
+                    Grid.Row="2"
+                    Grid.Column="0" Grid.ColumnSpan="3"
+                    MinimumDate="{Binding Minimaldate, Source={RelativeSource AncestorType={x:Type viewmodel:ProductDisplayViewModel}}}"
+                    MaximumDate="{Binding Maximaldate, Source={RelativeSource AncestorType={x:Type viewmodel:ProductDisplayViewModel}}}"
+                    TextColor="Black"
+                    BackgroundColor="AntiqueWhite"
+                    Margin="60,10,60,10"
+                    x:Name="newDate"
+                    />
+                <Button
+                    Text="Update product"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Command="{Binding completeCheck}"
+                    CommandParameter="{Binding Source={x:Reference newDate}, Path=Date}"/>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

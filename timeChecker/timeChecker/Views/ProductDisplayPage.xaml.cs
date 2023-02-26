@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using timeChecker.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,7 +14,9 @@ namespace timeChecker.Views
     {
         public ProductDisplayPage()
         {
+            this.BindingContext = new ProductDisplayViewModel();
             InitializeComponent();
+
         }
     }
 }

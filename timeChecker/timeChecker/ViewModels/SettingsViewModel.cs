@@ -226,7 +226,6 @@ namespace timeChecker.ViewModels
                 foreach (var category in resultList)
                 {
                     this.Categories.Add(category.CategoryName);
-                    Console.WriteLine("Category added! " + category.CategoryName);
                 }
             });
 
